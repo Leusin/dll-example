@@ -1,17 +1,8 @@
-# dll-example
- dll 런타임 동적링크, 로드 타임 동적 링크 간단한 실습
-
 # 1. DLL이란?
-
-![Dll_icon.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/fc41186f-ee70-4e19-9075-d4385ae284bc/Dll_icon.png)
 
 **DLL**(Dynamic Link Library)은 Windows에서 구현된 동적 라이브러리 입니다. 다른 플랫폼에서는 Mac의 **dylib**(dynamic library)와 Linux의 **so**(shared object) 파일이 동적 라이브러리로 사용됩니다.
 
 동적 라이브러리는 실행 시간에 프로그램에 로드되며, 여러 프로그램이 동시에 공유할 수 있는 코드와 데이터를 포함합니다. Windows 운영 체제에서는 많은 기능이 DLL로 제공됩니다. 대표적으로 **comdlg32.dll**은 Windows의 팝업 대화 상자를 생성하는 데 사용됩니다.
-
-![comdlg32.dll의 ****기본 경로 C:\Windows\System32](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/67b0f510-3717-4ab5-9995-f755fa2e512e/image.png)
-
-comdlg32.dll의 ****기본 경로 C:\Windows\System32
 
 DLL 파일의 파일 확장자는 .dll인 경우가 많지만 다른 파일 확장자를 가질 수 있습니다. 
 (예: ActiveX 컨트롤의 경우 .ocx, 레거시(16비트) 장치 드라이버의 경우 .drv)
@@ -45,12 +36,6 @@ DLL을 사용하면 프로그램을 여러 개별 구성 요소로 모듈화할 
 
 DLL 사용은 편리하지만, 프로그램 입장에서는 DLL의 새 코드가 호환하는지 확인할 방법이 없기 때문에 여러 DLL에 의존할 경우 호환성 문제가 발생할 수 있습니다.
 
-이러한 상황에서는 프로그램 실행이 멈추며 다음과 같은 오류 메시지가 표시될 수 있습니다.
-
-![“파일이름.exe - 시스템 오류 core.dll이(가) 없어 코드 실행을 진행할 수 없습니다. 프로그램을 다시 설치하면 이 문제가 해결될 수 있습니다.” (이미지 출처: [https://how2open.com/blog/core-dll을-찾을-수-없거나-누락-된-오류를-수정하는-방법/](https://how2open.com/blog/core-dll%EC%9D%84-%EC%B0%BE%EC%9D%84-%EC%88%98-%EC%97%86%EA%B1%B0%EB%82%98-%EB%88%84%EB%9D%BD-%EB%90%9C-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/))](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/b1ad9c42-c057-4c83-a0d2-2151286340ea/core-dll-error-message-5ab3bf728e1b6e00379ec776.png)
-
-“파일이름.exe - 시스템 오류 core.dll이(가) 없어 코드 실행을 진행할 수 없습니다. 프로그램을 다시 설치하면 이 문제가 해결될 수 있습니다.” (이미지 출처: [https://how2open.com/blog/core-dll을-찾을-수-없거나-누락-된-오류를-수정하는-방법/](https://how2open.com/blog/core-dll%EC%9D%84-%EC%B0%BE%EC%9D%84-%EC%88%98-%EC%97%86%EA%B1%B0%EB%82%98-%EB%88%84%EB%9D%BD-%EB%90%9C-%EC%98%A4%EB%A5%98%EB%A5%BC-%EC%88%98%EC%A0%95%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95/))
-
 이와 같은 문제를 **DLL Hell**이라고 부르며 특히 오래된 Windows 버전에 이러한 문제를 빈번하게 발생했었습니다.
 
 ### **DLL 문제의 주요 원인**
@@ -62,13 +47,8 @@ DLL 사용은 편리하지만, 프로그램 입장에서는 DLL의 새 코드가
 - **의도하지 않은 변경**
     
     설치 프로그램이 특정 애플리케이션을 위해 DLL을 수정하거나, 기존 DLL을 덮어씌우거나 제거하면 다른 프로그램에서 충돌이 발생할 수 있습니다.
-    
-
+  
 예를 들어, 과거 일부 프로그램은 사용자의 의도와 상관없이 DLL을 새로운 버전으로 업그레이드하거나, 이전 버전을 덮어쓰거나, 심지어 삭제하기도 했습니다. 설치 프로그램이 특정 애플리케이션에 최적화된 DLL을 제공하더라도, 이 DLL이 다른 프로그램과 호환되지 않으면 충돌을 일으킬 가능성이 높습니다.
-
-![이미지 출처: https://ko.wikipedia.org/wiki/NSIS](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/1bf9ca04-ab53-4e66-b313-c11ddffbce1d/NSIS_screenshot.png)
-
-이미지 출처: https://ko.wikipedia.org/wiki/NSIS
 
 ## 3) 최신 Windows 에서 해결책
 
@@ -79,14 +59,6 @@ DLL Hell 문제는 Microsoft가 시스템 표준을 보호하지 않았고 버�
 - **Windows 파일 보호**: 운영 체제는 권한 없이 시스템 DLL을 삭제하거나 업데이트하는 것을 차단합니다.
 - **전용 DLL(Private DLL)**: 프로그램 설치 경로에 필요한 DLL을 저장하거나 **.local** 파일을 통해 공유 특정 프로그램이 자신만의 독립적인 DLL 버전을 사용할 수 있도록 합니다.
 - **동시 버전 허용(Side-by-Side Assembly)**: 동일한 DLL의 여러 버전을 시스템에서 동시 실행할 수 있습니다.
-
-<aside>
-💡
-
- **DLL 오류 해결 방법**: 
-DLL 오류가 발생하면 해당 DLL 파일이 포함된 드라이버를 재설치하는 것이 가장 좋은 방법입니다.
-
-</aside>
 
 # 2. 구조와 동작 방식
 
@@ -121,15 +93,6 @@ DLL 오류가 발생하면 해당 DLL 파일이 포함된 드라이버를 재설
 ## 2) 메모리 관리
 
 - **가상 주소 공간 공유**
-    
-    ![두 프로세스는 동일한 DLL의 물리적 페이지를 공유 중입니다.](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/edb5a8f6-137c-465e-9f63-d1254a5d6d7c/mem1.png)
-    
-    두 프로세스는 동일한 DLL의 물리적 페이지를 공유 중입니다.
-    
-    ![ Process 1이 쓰기를 시도하면, 새로운 물리적 페이지가 만들어져 독립적으로 사용됩니다.](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/efd406f2-4482-4f35-92a6-a85d28b0d53b/mem2.png)
-    
-     Process 1이 쓰기를 시도하면, 새로운 물리적 페이지가 만들어져 독립적으로 사용됩니다.
-    
     여러 프로세스가 동일한 DLL을 로드하면, 해당 DLL의 물리적 페이지는 여러 프로세스 간에 공유됩니다. 읽기 작업은 공유되지만, 쓰기 작업은 각 프로세스가 독립적으로 처리합니다(Copy-On-Write, COW).
     
 - **참조 카운트**
@@ -222,165 +185,3 @@ DLL 내부 함수를 내보내려면 두 가지 방법 중 하나를 사용할 �
     LIBRARY "sampleDLL"
     EXPORTS HelloWorld
     ```
-    
-
-# 4. 예제
-
-## 1) DLL 구현
-
-- **SampleDLL.h**
-    
-    ```c
-    #ifndef INDLL_H
-    #define INDLL_H
-    
-    #ifdef EXPORTING_DLL
-    extern "C" __declspec(dllexport) void HelloWorld();
-    #else
-    extern "C" __declspec(dllimport) void HelloWorld();
-    #endif
-    
-    #endif // INDLL_H
-    
-    ```
-    
-- **SampleDLL.cpp**
-    
-    ```c
-    #include "pch.h"
-    #define EXPORTING_DLL
-    #include "SampleDLL.h"
-    
-    // 내보낸 함수
-    extern "C" __declspec(dllexport) void HelloWorld()
-    {
-        MessageBox(NULL, TEXT("Hello World"), TEXT("In a DLL"), MB_OK);
-    }
-    
-    ```
-    
-    C++에서 DLL 내보내기 시에는 **extern "C"**를 사용하여 이름 맹글링을 방지해야 합니다.
-    
-
-![dll 프로젝트 속성은 위와 같이 설정한 뒤 빌드합니다.](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/0c8639d1-aa7d-4cfa-91e4-98ac6b42376a/image.png)
-
-dll 프로젝트 속성은 위와 같이 설정한 뒤 빌드합니다.
-
-## 2) 로드타임 동적 연결 사용
-
-1. 프로젝트 설정에서 가져오기 라이브러리 파일(**.h**, **.lib**)의 경로를 설정하기.
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/04c32025-5ef0-4c4b-aef8-974055f2de8f/image.png)
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/f4af1eb3-01b1-43c7-b0da-b0c359ae89fd/image.png)
-    
-2. 프로젝트의 설정에서 DLL의 **.lib** 파일을 정적으로 링킹하기.
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/44633dc6-bf07-431a-874b-020eb65eeb52/image.png)
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/7a5c4fbb-e334-4593-a9f6-89769dba4f8e/image.png)
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/2413b751-3268-4ba3-9d32-9ad127bebf8e/image.png)
-    
-3. 빌드 후 이벤트로 DLL을 실행 파일에 복사 하도록 설정하기.
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/a72554c5-53f5-41f3-abc5-28f559f0cf14/image.png)
-    
-    ![xcopy \y \d "[dll 파일의 디렉터리 경로]\SampleDLL.dll" "[실행 파일의 디렉터리 경로]" ](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/8c02f704-fa4c-40e3-989d-3afd3499c72a/image.png)
-    
-    xcopy \y \d "[dll 파일의 디렉터리 경로]\SampleDLL.dll" "[실행 파일의 디렉터리 경로]" 
-    
-- **main.cpp**(콘솔 응용 프로그램, 하위 시스템: 콘솔(/SUBSYSTEM:CONSOLE))
-    
-    ```c
-    #include "SampleDLL.h"
-    
-    // 정적 링크 방식
-    int main()
-    {
-    	// DLL에서 내보낸 함수 호출
-    	HelloWorld();
-    	return 0;
-    }
-    ```
-    
-- **실행 결과**
-    
-    ![실행 성공](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/8088aaff-d8b7-4c91-bb07-7dfc38bb3e28/image.png)
-    
-    실행 성공
-    
-    ![실행 실패](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/ecc00d28-25c6-4041-8f76-dc20ef11abb7/image.png)
-    
-    실행 실패
-    
-
-## 3) 런타임 동적 연결 사용
-
-- **WinMain.cpp**(Windows 응용 프로그램, 하위 시스템: 창(/SUBSYSTEM:WINDOWS))
-    
-    ```c
-    #include <windows.h>
-    
-    typedef VOID(*DLLPROC)();
-    
-    int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-    {
-    	HINSTANCE hinstDLL; // DLL 핸들
-    	DLLPROC HelloWorld; // 함수 포인터
-    	BOOL fFreeDLL;
-    
-    	// DLL 로드
-    	hinstDLL = LoadLibrary(TEXT(".\\..\\SampleDll\\x64\\Debug\\SampleDll.dll"));
-    
-    	if (hinstDLL != NULL)
-    	{
-    		// 함수 주소 가져오기
-    		HelloWorld = (DLLPROC)GetProcAddress(hinstDLL, "HelloWorld");
-    		if (HelloWorld != NULL)
-    		{
-    			// 함수 호출
-    			(HelloWorld)();
-    		}
-    
-    		// DLL 해제 (메모리 누수를 막기 위해 꼭 필요!)
-    		fFreeDLL = FreeLibrary(hinstDLL);
-    	}
-    	else
-    	{
-    		MessageBox(NULL, TEXT("DLL Load Failed!"), TEXT("Error"), MB_OK);
-    	}
-    
-    	return 0;
-    }
-    ```
-    
-    런타임 동적 연결에서 **LoadLibrary**에 DLL 경로를 지정할 때 경로를 명확히 설정해야 합니다. 혹은 빌드 후 이벤트로 실행 결로에 dll파일을 복사하도록할 수도 있습니다.
-    
-    **LoadLibrary** 와 **GetProcAddress** 호출 실패 시 적절한 에러 메시지를 출력하거나 처리해야 합니다.
-    
-- **실행 결과**
-    
-    ![실행 성공](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/b3d10171-06aa-4984-8968-92156cbbf721/image.png)
-    
-    실행 성공
-    
-    ![실행 실패](https://prod-files-secure.s3.us-west-2.amazonaws.com/1592072d-7ae2-4838-859a-9fbf69107f0c/0e59ef4d-d766-4683-ace7-a95ea5ab94dc/image.png)
-    
-    실행 실패
-    
-
----
-
-# 참고
-
-- [YouTube - What Are DLLs?](https://www.youtube.com/watch?v=4daUujBgQQ8)
-- [YouTube - 21장. Dynamic Linking Library](https://www.youtube.com/watch?v=JK6U91t7mgY)
-- [Microsoft Learn - DLL이란?](https://learn.microsoft.com/ko-kr/troubleshoot/windows-client/setup-upgrade-and-drivers/dynamic-link-library)
-- [Microsoft Learn - 동적 링크 라이브러리](https://learn.microsoft.com/ko-kr/windows/win32/dlls/dynamic-link-libraries)
-- [Microsoft Learn - 메모리 보호](https://learn.microsoft.com/ko-kr/windows/win32/memory/memory-protection)
-- [Microsoft Learn - 연습: 고유한 동적 링크 라이브러리 만들기 및 사용(C++)](https://learn.microsoft.com/ko-kr/cpp/build/walkthrough-creating-and-using-a-dynamic-link-library-cpp?view=msvc-170)
-- [Wikipedia - 동적 링크 라이브러리](https://ko.wikipedia.org/wiki/%EB%8F%99%EC%A0%81_%EB%A7%81%ED%81%AC_%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC)
-- [Wikipedia - 사이드 바이 사이트 어셈블리](https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%EB%93%9C_%EB%B0%94%EC%9D%B4_%EC%82%AC%EC%9D%B4%EB%93%9C_%EC%96%B4%EC%85%88%EB%B8%94%EB%A6%AC)
-- [나무위키 - DLL](https://namu.wiki/w/DLL)
-- [NAVER Blog - dll파일 명시적링크하기(LoadLibrary(),GetProcAdress() ,FreeLibrary()](https://blog.naver.com/sorkelf/40133647878)
