@@ -190,9 +190,9 @@ DLL 내부 함수를 내보내려면 두 가지 방법 중 하나를 사용할 �
 
 - **__declspec(dllexport) 키워드 사용하는 방법**
     
-    일반적으로 **__declspec(dllexport)**문과 **__declspec(dllimport)**문을 구분하기 위해 define 문과 ifdef 문이 포함된 하나의 헤더 파일을 사용합니다.
+    일반적으로 **__declspec(dllexport)** 문과 **__declspec(dllimport)** 문을 구분하기 위해 define 문과 ifdef 문이 포함된 하나의 헤더 파일을 사용합니다.
     
-    ```c
+    ```c++
     #ifdef EXPORTING_DLL
         __declspec(dllexport) void HelloWorld(); // 내보내려는 함수 선언
     #else
@@ -206,7 +206,7 @@ DLL 내부 함수를 내보내려면 두 가지 방법 중 하나를 사용할 �
     
     모듈 정의 파일에서 DLL에 대한 LIBRARY 문과 EXPORTS 문을 선언합니다. 
     
-    ```c
+    ```c++
     // SampleDLL.def
     LIBRARY "sampleDLL"
     EXPORTS HelloWorld
